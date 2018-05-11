@@ -21,6 +21,7 @@ import android.graphics.Typeface;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatDelegate;
 
+import com.appspector.sdk.AppSpector;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
@@ -48,6 +49,16 @@ public class Application extends android.app.Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        AppSpector
+                .build(this)
+                .addPerformanceMonitor()
+                .addHttpMonitor()
+                .addLogMonitor()
+                .addScreenshotMonitor()
+                .addSQLMonitor()
+                .run(BuildConfig.APPSPECTOR_API_KEY);
+
         AppCompatDelegate.setDefaultNightMode(Preferences.Theme.getAutoDayNightMode(this));
         AlgoliaClient.sSortByTime = Preferences.isSortByRecent(this);
         mRefWatcher = LeakCanary.install(this);
