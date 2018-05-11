@@ -9,9 +9,6 @@ jobs:
       steps:
         - checkout
         - run:
-            name: Copy config
-            command: cp ./gradle.properties-example ./gradle.properties
-        - run:
             name: Assemble build
             command: ./gradlew :app:assembleDebug
         - run:
